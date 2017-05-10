@@ -53,16 +53,17 @@ do
 		else
 		    #echo $elim $asymm $rcheck $sublim $file
 		    dimacs_file=`echo ${name}. $elim_str $asymm_str $rcheck_str $sublim_str .cnf | tr ' ' '_'`
-		    $maple $elim $asymm $rcheck $sublim $file -dimacs=${out_dir}/${dimacs_file}"			
+		    $maple $elim $asymm $rcheck $sublim $file -dimacs=${out_dir}/${dimacs_file}			
+
 		fi
-		res=`echo $res | tr '|' ' '`
-		simp_time=`echo $res | awk '{print $3}'`
-		total_time=`echo $res | awk '{print $8}'`
+		#res=`echo $res | tr '|' ' '`
+		#simp_time=`echo $res | awk '{print $3}'`
+		#total_time=`echo $res | awk '{print $8}'`
 		# echo $simp_time
 		# echo $total_time
-		solving_time=`echo $total_time $simp_time | awk '{print $1-$2}'`
-		echo $elim_str $asymm_str $rcheck_str $sublim_str $simp_time $solving_time $total_time
-		echo $elim_str $asymm_str $rcheck_str $sublim_str $simp_time $solving_time $total_time >> $out_file
+		#solving_time=`echo $total_time $simp_time | awk '{print $1-$2}'`
+		#echo $elim_str $asymm_str $rcheck_str $sublim_str $simp_time $solving_time $total_time
+		#echo $elim_str $asymm_str $rcheck_str $sublim_str $simp_time $solving_time $total_time >> $out_file
 	    done
 	done
     done
