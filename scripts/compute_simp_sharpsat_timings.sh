@@ -45,17 +45,17 @@ do
 		else
 		    sublim_str="0 "
 		fi
+		dimacs_file=`echo ${name}. $elim_str $asymm_str $rcheck_str $sublim_str .cnf | tr ' ' '_'`
 		if [[ $elim == "-no-elim" && $asymm == "-no-asymm" && $rcheck == "-no-rcheck" && $sublim == "-sub-lim=0" ]]
 		then
 		    #echo -no-pre $file
 		    # all zeroes is the no simp file
-		    cp $file ${out_dir}/${name}.0000.cnf
+		    cp $file ${out_dir}/${dimacs_file}
 		else
 		    #echo $elim $asymm $rcheck $sublim $file
-		    dimacs_file=`echo ${name}. $elim_str $asymm_str $rcheck_str $sublim_str .cnf | tr ' ' '_'`
-		    $maple $elim $asymm $rcheck $sublim $file -dimacs=${out_dir}/${dimacs_file}			
-
+		    $maple $elim $asymm $rcheck $sublim $file -dimacs=${out_dir}/${dimacs_file}		  
 		fi
+		$sharpsat  ${out_dir}/${dimacs_file}
 		#res=`echo $res | tr '|' ' '`
 		#simp_time=`echo $res | awk '{print $3}'`
 		#total_time=`echo $res | awk '{print $8}'`

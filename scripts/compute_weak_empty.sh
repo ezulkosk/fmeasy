@@ -1,34 +1,36 @@
 #!/bin/bash
 
-
-bench=$1
+maplesat=$1
+openwbo=$2
+bench=$3
+instance=$4
 num_iters=1000
 
-mkdir fm_out
-mkdir fm_out/${bench}
+
+out_dir=/home/ezulkosk/backdoors_benchmarks/${bench}/weak_empty/
 
 for input in ~/backdoors_benchmarks/${bench}/cnf/*
 do
     name=`basename $input .cnf`
     for seed in `seq 1 $num_iters`
     do
-	./maplesat  ${input} model -hitting-set-out=fm_out/${bench}/${name}.${seed}.wcnf -no-pre -rnd-seed=$seed -rnd-init -rnd-freq=1 -rnd-pol 
-	./open-wbo fm_out/${name}.${seed}.wcnf > fm_out/${benchm}/${name}.${seed}.result
-	rm fm_out/${name}.${seed}.wcnf
+	${maplesat}  ${input} model -hitting-set-out=${out_dir}/${name}.${seed}.wcnf -no-pre -rnd-seed=$seed -rnd-init -rnd-freq=1 -rnd-pol 
+	${openwbo} ${out_dir}/${name}.${seed}.wcnf > ${out_dir}/${name}.${seed}.result
+	rm ${out_dir}/${name}.${seed}.wcnf
     done
 done
 
-for i in fm_out/${bench}/*.result
+for i in ${out_dir}/*.result
 do
     name=`basename $i .result`
     echo $name
-    cat $i | grep "^v" | sed 's/v //g' | tr ' ' '\n' | grep -c "-" > fm_out/${bench}/${name}.weak_empty
+    cat $i | grep "^v" | sed 's/v //g' | tr ' ' '\n' | grep -c "-" > ${out_dir}/${name}.weak_empty
 done
 
 for i in ~/backdoors_benchmarks/${bench}/cnf/*.cnf
 do
     name=`basename $i .cnf`
     echo $name
-    cat fm_out/${bench}/${name}.*.weak_empty | sort -rn | head -n 1 > fm_out/${bench}/${name}.best_weak_empty
+    cat ${out_dir}/${name}.*.weak_empty | sort -rn | head -n 1 > ${out_dir}/${name}.best_weak_empty
 done
 
