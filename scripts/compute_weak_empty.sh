@@ -8,6 +8,7 @@ num_iters=1000
 
 
 out_dir=/home/ezulkosk/backdoors_benchmarks/${bench}/weak_empty/
+mkdir $out_dir
 
 for input in ~/backdoors_benchmarks/${bench}/cnf/*
 do
