@@ -16,7 +16,7 @@ do
     for seed in `seq 1 $num_iters`
     do
 	${maplesat}  ${input} ${out_dir}/${name}.${seed}.model  -no-pre -rnd-seed=$seed -rnd-init -rnd-freq=1 -rnd-pol
-	python3 /home/ezulkosk/fmeasy/src/compute_hitting_set.py $input ${out_dir}/${name}.${seed}.model > ${out_dir}/${name}.${seed}.wcnf
+	python3 /home/ezulkosk/fmeasy/src/hitting_set_generator.py $input ${out_dir}/${name}.${seed}.model > ${out_dir}/${name}.${seed}.wcnf
 	${openwbo} ${out_dir}/${name}.${seed}.wcnf > ${out_dir}/${name}.${seed}.result
 	#rm ${out_dir}/${name}.${seed}.wcnf
     done
