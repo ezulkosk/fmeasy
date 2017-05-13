@@ -7,7 +7,7 @@ instance=$4
 num_iters=1000
 
 
-out_dir=/home/ezulkosk/backdoors_benchmarks/${bench}/weak_empty/
+out_dir=/home/ezulkosk/backdoors_benchmarks/${bench}/weak_e/
 mkdir $out_dir
 
 name=`basename $instance .cnf`
