@@ -8,7 +8,7 @@ out_dir=$4
 instance=$5
 num_iters=$6
 
-
+out_dir=${out_dir}/weak_e_files/
 #out_dir=/home/ezulkosk/backdoors_benchmarks/${bench}/weak_e_files/
 mkdir $out_dir
 
