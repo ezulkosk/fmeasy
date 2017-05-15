@@ -1,10 +1,11 @@
 #!/bin/bash
 maple=$1
 sharpsat=$2
-bench=$3
+base_dir=$3
 file=$4
 
-out_dir=~/backdoors_benchmarks/${bench}/simp_sharpsat_test/
+out_dir=${base_dir}/simp_sharpsat_test/
+
 
 mkdir $out_dir
 
@@ -55,7 +56,8 @@ do
 		    #echo $elim $asymm $rcheck $sublim $file
 		    $maple $elim $asymm $rcheck $sublim $file -dimacs=${out_dir}/${dimacs_file}		  
 		fi
-		$sharpsat  ${out_dir}/${dimacs_file}
+		time=`$sharpsat  ${out_dir}/${dimacs_file} | grep time | awk '{print $2}' | sed 's/s//g'`
+		echo $elim_str $asymm_str $rcheck_str $sublim_str $simp_time $solving_time $time >> $out_file
 		#res=`echo $res | tr '|' ' '`
 		#simp_time=`echo $res | awk '{print $3}'`
 		#total_time=`echo $res | awk '{print $8}'`
