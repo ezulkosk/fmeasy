@@ -3,6 +3,7 @@ maple=$1
 sharpsat=$2
 base_dir=$3
 file=$4
+simp_sharpsat_time=$5
 
 out_dir=${base_dir}/simp_sharpsat_test/
 
@@ -56,7 +57,7 @@ do
 		    #echo $elim $asymm $rcheck $sublim $file
 		    $maple $elim $asymm $rcheck $sublim $file -dimacs=${out_dir}/${dimacs_file}		  
 		fi
-		time=`$sharpsat  ${out_dir}/${dimacs_file} | grep time | awk '{print $2}' | sed 's/s//g'`
+		time=`timeout $simp_sharpsat_time $sharpsat  ${out_dir}/${dimacs_file} | grep time | awk '{print $2}' | sed 's/s//g'`
 		echo $elim_str $asymm_str $rcheck_str $sublim_str $simp_time $solving_time $time >> $out_file
 		#res=`echo $res | tr '|' ' '`
 		#simp_time=`echo $res | awk '{print $3}'`
