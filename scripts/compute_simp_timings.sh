@@ -2,7 +2,7 @@
 maple=$1
 bench=$2
 file=$3
-simp_time=$4
+simp_timeout=$4
 
 out_dir=~/backdoors_benchmarks/${bench}/simp_test/
 
@@ -48,10 +48,10 @@ do
 		if [[ $elim == "-no-elim" && $asymm == "-no-asymm" && $rcheck == "-no-rcheck" && $sublim == "-sub-lim=0" ]]
 		then
 		    #echo -no-pre $file
-		    res=`timeout $simp_time $maple -no-pre $file | grep "Simplifi\|CPU time"`
+		    res=`timeout $simp_timeout $maple -no-pre $file | grep "Simplifi\|CPU time"`
 		else
 		    #echo $elim $asymm $rcheck $sublim $file
-		    res=`timeout $simp_time $maple $elim $asymm $rcheck $sublim $file | grep "Simplifi\|CPU time"`			
+		    res=`timeout $simp_timeout $maple $elim $asymm $rcheck $sublim $file | grep "Simplifi\|CPU time"`			
 		fi
 		res=`echo $res | tr '|' ' '`
 		simp_time=`echo $res | awk '{print $3}'`
